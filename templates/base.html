@@ -1,0 +1,32 @@
+{% load static %}
+{% load bootstrap4 %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% bootstrap_css %}
+
+    <title>Django Charts</title>
+  </head>
+  <body>
+
+    {% block content %} {% endblock content %}
+    
+    <!-- Optional JavaScript; choose one of the two! -->
+    {% bootstrap_javascript jquery='full' %}
+    <script src="{% static 'js/Chart.min.js' %}"></script>
+    <script>
+        $.get("{% url 'app:data' %}", function(data){
+            let ctx = $("#graphic").get(0).getContext("2d");
+            new Chart(ctx, {
+                type: 'line', data: data
+            });
+        });
+    </script>
+
+  </body>
+</html>
